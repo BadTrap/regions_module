@@ -1,0 +1,306 @@
+<?php
+
+/**
+ * Include geolocation_ip.php
+ */
+
+/**
+ * Implements hook_block_info().
+ */
+function regions_block_info() {
+    $blocks = array();
+    $blocks['my_block'] = array(
+        'info' => t('Regions'),
+    );
+
+    return $blocks;
+}
+
+/**
+ * Implements hook_block_configure().
+ */
+function regions_block_configure($delta = '') {
+    $form = array();
+
+    switch ($delta) {
+        case 'my_block' :
+// Text field form element
+            $form['text_body'] = array(
+                '#type' => 'text_format',
+                '#title' => t('Enter your text here in WYSIWYG format'),
+                '#default_value' => variable_get('text_variable', ''),
+            );
+
+            break;
+    }
+    return $form;
+}
+
+/**
+ * Implements hook_block_save().
+ */
+function regions_block_save($delta  ='', $edit = array()) {
+    switch ($delta) {
+        case 'my_block' :
+
+            $block = block_load('regions ', $delta);
+
+            break;
+    }
+}
+
+/**
+ * Implements hook_block_view().
+ */
+function regions_block_view($delta = '') {
+    $block = array();
+
+    switch ($delta) {
+        case 'my_block' :
+            $block['content'] = regions_callback();
+            break;
+    }
+
+    return $block;
+}
+
+
+//Визнача IP
+function getRealIP()
+{
+
+    if(isset($_SERVER['HTTP_X_FORWARDED_FOR']) )
+    {
+        $client_ip =
+            ( !empty($_SERVER['REMOTE_ADDR']) ) ?
+                $_SERVER['REMOTE_ADDR']
+                :
+                ( ( !empty($_ENV['REMOTE_ADDR']) ) ?
+                    $_ENV['REMOTE_ADDR']
+                    :
+                    "unknown" );
+        $entries = split('[, ]', $_SERVER['HTTP_X_FORWARDED_FOR']);
+
+        reset($entries);
+        while (list(, $entry) = each($entries))
+        {
+            $entry = trim($entry);
+            if ( preg_match("/^([0-9]+\.[0-9]+\.[0-9]+\.[0-9]+)/", $entry, $ip_list) )
+            {
+                $private_ip = array(
+                );
+
+                $found_ip = preg_replace($private_ip, $client_ip, $ip_list[1]);
+
+                if ($client_ip != $found_ip)
+                {
+                    $client_ip = $found_ip;
+                    break;
+                }
+            }
+        }
+    }
+    else
+    {
+        $client_ip =
+            ( !empty($_SERVER['REMOTE_ADDR']) ) ?
+                $_SERVER['REMOTE_ADDR']
+                :
+                ( ( !empty($_ENV['REMOTE_ADDR']) ) ?
+                    $_ENV['REMOTE_ADDR']
+                    :
+                    "unknown" );
+    }
+
+    return $client_ip;
+
+}
+
+
+//var_dump($real_ip);
+/*Визначення геолокації по IP*/
+function getLocation()
+{
+
+    $ip = '93.75.14.245';
+    //$ip_test2 = '94.244.22.168';
+    //$ip_test1 = '31.43.244.40';
+    //$ip_test3 = '88.135.203.123';
+    //$ip_test_Dnipro = '91.221.64.7';
+    //var_dump($ip);1
+
+
+    //Геолокація #1
+    $postGeo = file_get_contents("http://freegeoip.net/json/" . $ip);
+    $dataGeo = json_decode($postGeo, true);
+    //var_dump($dataGeo);
+    //var_dump($ip);
+
+    /*
+     * Геолокація #2
+     * $postGeo2 = file_get_contents("https://ipvigilante.com/".$ip_test1."/full");
+     * $dataGeo2 = json_decode($postGeo2, true);
+     * var_dump($dataGeo2);
+    */
+
+    //Країна
+    /*
+    if ($dataGeo['country_name'] == 'Ukraine') {
+        $curent_country = 'Україна';
+    } else {
+        $curent_country = 'Невідомо';
+    }
+    */
+
+    //Міста
+
+    /*
+    $cities = array(
+        "Uzhhorod" => "Ужгород",
+        "Kiev" => "Київ",
+        "Burshtyn" => "Бурштино",
+        "Dnipro" => "Дніпропетровськ",
+        "Simferopol" => "Сімферополь",
+        "Cherkasy" => "Черкаси",
+        "Chernihiv" => "Чернігів",
+        "Chernivtsi" => "Чернівці",
+        "Donetsk" => "Донецьк",
+        "Kharkiv" => "Харків",
+        "Kherson" => "Херсон",
+        "Khmelnytskyi" => "Хмельницьк",
+        "Luhansk" => "Луганськ",
+        "Lviv" => "Львів",
+        "Mykolayiv" => "Миколаїв",
+        "Odessa" => "Одеса",
+        "Poltava" => "Полтава",
+        "Rivne" => "Рівне",
+        "Zaporizhia" => "Запоріжжя",
+        "Sumy" => "Суми",
+        "Ternopil" => "Тернопіль",
+        "Vinnytsia" => "Вінниця",
+        "Lutsk" => "Луцьк",
+        "Zhytomyr" => "Житомир",
+
+
+    );
+
+    foreach ($cities as $key => $value) {
+        if ($key == $dataGeo['city']) {
+            $curent_city = $value;
+        }
+    }
+
+    if (!isset($curent_city)) {
+        $curent_city = 'Невідомо';
+    }
+    */
+
+    //Массив областей
+    $regions = array(
+        "Cherkas'ka Oblast'" => "Черкаська обл.",
+        "Chernihiv" => "Чернігівська обл.",
+        "Chernivtsi" => "Чернівецька обл.",
+        "Dnipro" => "Дніпропетровська обл.",
+        "Donetsk" => "Донецька обл.",
+        "Ivano-Frankivs'ka Oblast'" => "Івано-Франківська обл.",
+        "Kharkivs'ka Oblast" => "Харківська обл.",
+        "Khersons'ka Oblast'" => "Херсонська обл.",
+        "Khmel'nyts'ka Oblast'" => "Хмельницька обл.",
+        "Kropyvnytskyi" => "Кировоградська обл.",
+        "Kyiv City" => "Київська обл.",
+        "Luhans'ka Oblast'" => "Луганська обл.",
+        "L'vivs'ka Oblast'" => "Львівська обл.",
+        "Mykolayivs'ka Oblast'" => "Миколаївська обл.",
+        "Odessa" => "Одеська обл.",
+        "Poltavs'ka Oblast'" => "Полтавська обл.",
+        "Rivnens'ka Oblast'" => "Рівненська обл.",
+        "Sums'ka Oblast'" => "Сумська обл.",
+        "Ternopil's'ka Oblast'" => "Тернопільська обл.",
+        "Vinnyts'ka Oblast'" => "Вінницька обл.",
+        "Volyns'ka Oblast'" => "Волинська обл.",
+        "Transcarpathia" => "Закарпатська обл.",
+        "Zaporizhia" => "Запоріжська обл.",
+        "Zhytomyrs'ka Oblast'" => "Житомирська обл.",
+
+    );
+
+
+    foreach ($regions as $key => $value) {
+        if ($key == $dataGeo['region_name']) {
+            $curent_region = $value;
+        }
+    }
+
+    if (!isset($curent_region)) {
+        $curent_region = 'Невідомо';
+    }
+
+
+    return $curent_region;
+
+    // return "Ви знаходитесь в місті - ".$curent_city."! <br> Ваша країна: ".$curent_country.". <br> Регіон:  ".$curent_region.". <br>";
+
+}
+
+//var_dump(getLocation());
+
+
+/**
+ * Assemble renderable array for test block content.
+ * @return
+ * returns a renderable array of block content.
+ */
+function my_block_view() {
+    $block = array();
+
+// Load text from variable
+    $text = variable_get('text_variable', '');
+
+// Block output in HTML with div wrappers around elements
+    $block = array(
+        'message' => array(
+            '#prefix' => '<div>',
+            '#type' => 'markup',
+            '#markup' => $text,
+            '#suffix' => '</div>',
+        )
+
+    );
+
+    return $block;
+
+
+}
+
+/**
+ * Implements hook_theme() to add the template definition.
+ **/
+function regions_theme($existing, $type, $theme, $path) {
+    $theme = array();
+    $theme['bootstrap_openosh'] = array(
+        'template' => 'block-regions',
+        'variables' => Array('regions' => NULL),
+    );
+    return $theme;
+}
+
+function getSessionLocation(){
+   return  $_SESSION['regions']['geolocation'] = getLocation();
+}
+
+
+
+// In the callback function
+function regions_callback() {
+    $params = array(
+        'location' => getLocation()
+    );
+    $output = theme('bootstrap_openosh',
+        $params);
+  return $output;
+}
+
+
+
+
+
