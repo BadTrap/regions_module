@@ -8,7 +8,9 @@
  * Implements hook_block_info().
  */
 function regions_block_info() {
+
     $blocks = array();
+
     $blocks['inner_block'] = array(
         'info' => t('Regions'),
     );
@@ -20,6 +22,7 @@ function regions_block_info() {
  * Implements hook_block_configure().
  */
 function regions_block_configure($delta = '') {
+
     $form = array();
 
     switch ($delta) {
@@ -40,6 +43,7 @@ function regions_block_configure($delta = '') {
  * Implements hook_block_save().
  */
 function regions_block_save($delta  ='', $edit = array()) {
+
     switch ($delta) {
         case 'inner_block' :
 
@@ -53,6 +57,7 @@ function regions_block_save($delta  ='', $edit = array()) {
  * Implements hook_block_view().
  */
 function regions_block_view($delta = '') {
+
     $block = array();
 
     switch ($delta) {
@@ -68,7 +73,6 @@ function regions_block_view($delta = '') {
 //Визнача IP
 function getRealIP()
 {
-
     if(isset($_SERVER['HTTP_X_FORWARDED_FOR']) )
     {
         $client_ip =
@@ -149,6 +153,7 @@ function getArrayOfRegions(){
         "Zaporizhia" => "Запоріжська обл.",
         "Zhytomyrs'ka Oblast'" => "Житомирська обл.",
     );
+
     return $regions;
 }
 
@@ -156,6 +161,7 @@ function getArrayOfRegions(){
  * return @cities Array[];
  */
 function getArrayOfCities(){
+
     $cities = array(
         "Uzhhorod" => "Ужгород",
         "Kiev" => "Київ",
@@ -272,6 +278,7 @@ function getLocation()
  * returns a renderable array of block content.
  */
 function inner_block_view() {
+
     $block = array();
 
 // Load text from variable
@@ -297,29 +304,39 @@ function inner_block_view() {
  * Implements hook_theme() to add the template definition.
  **/
 function regions_theme($existing, $type, $theme, $path) {
+
     $theme = array();
+
     $theme['bootstrap_openosh'] = array(
         'template' => 'block-regions',
         'variables' => Array(
             'regions' => NULL
             ),
     );
+
     return $theme;
 }
 
 function getSessionLocation(){
-   return  $_SESSION['regions']['geolocation'] = getLocation();
+
+    return  $_SESSION['regions']['geolocation'] = getLocation();
+
 }
 
 
 
 // In the callback function
 function regions_callback() {
+
     $params = array(
+
         'location' => getSessionLocation(),
         'regions_map' => getArrayOfRegions(),
+
     );
+
     $output = theme('bootstrap_openosh', $params);
+
   return $output;
 }
 

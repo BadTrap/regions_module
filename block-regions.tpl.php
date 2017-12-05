@@ -3,6 +3,7 @@
 
 locations
 
+
  * */
 //var_dump($location);
 //exit();
@@ -12,32 +13,33 @@ locations
 <div class="wrap-location-select">
     <select id="first-disabled" data-done-button="true" class="selectpicker" data-hide-disabled="true" data-live-search="true" data-header="Выберите регион">
         <optgroup disabled="disabled" label="disabled">
+
             <option>Hidden</option>
 
         </optgroup>
+
         <optgroup>
 
-
             <?php
+
             $current_location_region = $location;
+
             foreach ($regions_map as $key => $region) {
+
                 if(($region != $location) and (!empty($region))){
+
                     echo '<option value="' . $key . '" selected="selected">' . $region . '</option>';
+
                 } elseif(($region == $location) and (!empty($region))){
+
                 $current_location_region = $region;
+
                 }
             }
+
             echo '<option value="' . $location . '" selected="selected">' . $current_location_region . '</option>';
 
-
-
-
-
-
-
             ?>
-
-
 
             <!-- Список всіх городів:
             <option>Івано-Франківська обл.</option>
