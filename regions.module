@@ -124,6 +124,8 @@ function getRealIP()
 function getArrayOfRegions(){
 
     $regions = array(
+        "Kyiv City" => "Київ",
+        "Odessa" => "Одеса",
         "Cherkas'ka Oblast'" => "Черкаська обл.",
         "Chernihiv" => "Чернігівська обл.",
         "Chernivtsi" => "Чернівецька обл.",
@@ -133,12 +135,10 @@ function getArrayOfRegions(){
         "Kharkivs'ka Oblast" => "Харківська обл.",
         "Khersons'ka Oblast'" => "Херсонська обл.",
         "Khmel'nyts'ka Oblast'" => "Хмельницька обл.",
-        "Kropyvnytskyi" => "Кировоградська обл.",
-        "Kyiv City" => "Київська обл.",
+        "Kropyvnytskyi" => "Кіровоградська обл.",
         "Luhans'ka Oblast'" => "Луганська обл.",
         "L'vivs'ka Oblast'" => "Львівська обл.",
         "Mykolayivs'ka Oblast'" => "Миколаївська обл.",
-        "Odessa" => "Одеська обл.",
         "Poltavs'ka Oblast'" => "Полтавська обл.",
         "Rivnens'ka Oblast'" => "Рівненська обл.",
         "Sums'ka Oblast'" => "Сумська обл.",
@@ -148,8 +148,6 @@ function getArrayOfRegions(){
         "Transcarpathia" => "Закарпатська обл.",
         "Zaporizhia" => "Запоріжська обл.",
         "Zhytomyrs'ka Oblast'" => "Житомирська обл.",
-
-
     );
     return $regions;
 }
@@ -196,7 +194,7 @@ function getArrayOfCities(){
 function getLocation()
 {
     //User IP
-    $ip = getLocation();
+    $ip = getRealIP();
 
     /*Test IP*/
 
