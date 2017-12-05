@@ -196,7 +196,7 @@ function getArrayOfCities(){
 function getLocation()
 {
     //User IP
-    $ip = '93.75.14.245';
+    $ip = getLocation();
 
     /*Test IP*/
 
