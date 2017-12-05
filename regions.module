@@ -117,12 +117,90 @@ function getRealIP()
 }
 
 
-//var_dump($real_ip);
+
+/*
+ * return @regions Array[];
+ */
+function getArrayOfRegions(){
+
+    $regions = array(
+        "Cherkas'ka Oblast'" => "Черкаська обл.",
+        "Chernihiv" => "Чернігівська обл.",
+        "Chernivtsi" => "Чернівецька обл.",
+        "Dnipro" => "Дніпропетровська обл.",
+        "Donetsk" => "Донецька обл.",
+        "Ivano-Frankivs'ka Oblast'" => "Івано-Франківська обл.",
+        "Kharkivs'ka Oblast" => "Харківська обл.",
+        "Khersons'ka Oblast'" => "Херсонська обл.",
+        "Khmel'nyts'ka Oblast'" => "Хмельницька обл.",
+        "Kropyvnytskyi" => "Кировоградська обл.",
+        "Kyiv City" => "Київська обл.",
+        "Luhans'ka Oblast'" => "Луганська обл.",
+        "L'vivs'ka Oblast'" => "Львівська обл.",
+        "Mykolayivs'ka Oblast'" => "Миколаївська обл.",
+        "Odessa" => "Одеська обл.",
+        "Poltavs'ka Oblast'" => "Полтавська обл.",
+        "Rivnens'ka Oblast'" => "Рівненська обл.",
+        "Sums'ka Oblast'" => "Сумська обл.",
+        "Ternopil's'ka Oblast'" => "Тернопільська обл.",
+        "Vinnyts'ka Oblast'" => "Вінницька обл.",
+        "Volyns'ka Oblast'" => "Волинська обл.",
+        "Transcarpathia" => "Закарпатська обл.",
+        "Zaporizhia" => "Запоріжська обл.",
+        "Zhytomyrs'ka Oblast'" => "Житомирська обл.",
+
+
+    );
+    return $regions;
+}
+
+/*
+ * return @cities Array[];
+ */
+function getArrayOfCities(){
+    $cities = array(
+        "Uzhhorod" => "Ужгород",
+        "Kiev" => "Київ",
+        "Burshtyn" => "Бурштино",
+        "Dnipro" => "Дніпропетровськ",
+        "Simferopol" => "Сімферополь",
+        "Cherkasy" => "Черкаси",
+        "Chernihiv" => "Чернігів",
+        "Chernivtsi" => "Чернівці",
+        "Donetsk" => "Донецьк",
+        "Kharkiv" => "Харків",
+        "Kherson" => "Херсон",
+        "Khmelnytskyi" => "Хмельницьк",
+        "Luhansk" => "Луганськ",
+        "Lviv" => "Львів",
+        "Mykolayiv" => "Миколаїв",
+        "Odessa" => "Одеса",
+        "Poltava" => "Полтава",
+        "Rivne" => "Рівне",
+        "Zaporizhia" => "Запоріжжя",
+        "Sumy" => "Суми",
+        "Ternopil" => "Тернопіль",
+        "Vinnytsia" => "Вінниця",
+        "Lutsk" => "Луцьк",
+        "Zhytomyr" => "Житомир",
+
+
+    );
+
+    return $cities;
+}
+
+
+
 /*Визначення геолокації по IP*/
 function getLocation()
 {
+    //User IP
+    $ip = getRealIP();
 
-    $ip = '93.75.14.245';
+    /*Test IP*/
+
+    //ip_test_kiev = '93.75.14.245';
     //$ip_test2 = '94.244.22.168';
     //$ip_test1 = '31.43.244.40';
     //$ip_test3 = '88.135.203.123';
@@ -155,35 +233,7 @@ function getLocation()
     //Міста
 
     /*
-    $cities = array(
-        "Uzhhorod" => "Ужгород",
-        "Kiev" => "Київ",
-        "Burshtyn" => "Бурштино",
-        "Dnipro" => "Дніпропетровськ",
-        "Simferopol" => "Сімферополь",
-        "Cherkasy" => "Черкаси",
-        "Chernihiv" => "Чернігів",
-        "Chernivtsi" => "Чернівці",
-        "Donetsk" => "Донецьк",
-        "Kharkiv" => "Харків",
-        "Kherson" => "Херсон",
-        "Khmelnytskyi" => "Хмельницьк",
-        "Luhansk" => "Луганськ",
-        "Lviv" => "Львів",
-        "Mykolayiv" => "Миколаїв",
-        "Odessa" => "Одеса",
-        "Poltava" => "Полтава",
-        "Rivne" => "Рівне",
-        "Zaporizhia" => "Запоріжжя",
-        "Sumy" => "Суми",
-        "Ternopil" => "Тернопіль",
-        "Vinnytsia" => "Вінниця",
-        "Lutsk" => "Луцьк",
-        "Zhytomyr" => "Житомир",
-
-
-    );
-
+    $cities = getArrayOfCities();
     foreach ($cities as $key => $value) {
         if ($key == $dataGeo['city']) {
             $curent_city = $value;
@@ -196,34 +246,8 @@ function getLocation()
     */
 
     //Массив областей
-    $regions = array(
-        "Cherkas'ka Oblast'" => "Черкаська обл.",
-        "Chernihiv" => "Чернігівська обл.",
-        "Chernivtsi" => "Чернівецька обл.",
-        "Dnipro" => "Дніпропетровська обл.",
-        "Donetsk" => "Донецька обл.",
-        "Ivano-Frankivs'ka Oblast'" => "Івано-Франківська обл.",
-        "Kharkivs'ka Oblast" => "Харківська обл.",
-        "Khersons'ka Oblast'" => "Херсонська обл.",
-        "Khmel'nyts'ka Oblast'" => "Хмельницька обл.",
-        "Kropyvnytskyi" => "Кировоградська обл.",
-        "Kyiv City" => "Київська обл.",
-        "Luhans'ka Oblast'" => "Луганська обл.",
-        "L'vivs'ka Oblast'" => "Львівська обл.",
-        "Mykolayivs'ka Oblast'" => "Миколаївська обл.",
-        "Odessa" => "Одеська обл.",
-        "Poltavs'ka Oblast'" => "Полтавська обл.",
-        "Rivnens'ka Oblast'" => "Рівненська обл.",
-        "Sums'ka Oblast'" => "Сумська обл.",
-        "Ternopil's'ka Oblast'" => "Тернопільська обл.",
-        "Vinnyts'ka Oblast'" => "Вінницька обл.",
-        "Volyns'ka Oblast'" => "Волинська обл.",
-        "Transcarpathia" => "Закарпатська обл.",
-        "Zaporizhia" => "Запоріжська обл.",
-        "Zhytomyrs'ka Oblast'" => "Житомирська обл.",
 
-    );
-
+    $regions = getArrayOfRegions();
 
     foreach ($regions as $key => $value) {
         if ($key == $dataGeo['region_name']) {
@@ -242,7 +266,6 @@ function getLocation()
 
 }
 
-//var_dump(getLocation());
 
 
 /**
@@ -279,7 +302,9 @@ function regions_theme($existing, $type, $theme, $path) {
     $theme = array();
     $theme['bootstrap_openosh'] = array(
         'template' => 'block-regions',
-        'variables' => Array('regions' => NULL),
+        'variables' => Array(
+            'regions' => NULL
+            ),
     );
     return $theme;
 }
@@ -293,10 +318,10 @@ function getSessionLocation(){
 // In the callback function
 function regions_callback() {
     $params = array(
-        'location' => getLocation()
+        'location' => getSessionLocation(),
+        'regions_map' => getArrayOfRegions(),
     );
-    $output = theme('bootstrap_openosh',
-        $params);
+    $output = theme('bootstrap_openosh', $params);
   return $output;
 }
 

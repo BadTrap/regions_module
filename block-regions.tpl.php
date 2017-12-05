@@ -13,9 +13,25 @@ locations
     <select id="first-disabled" data-done-button="true" class="selectpicker" data-hide-disabled="true" data-live-search="true" data-header="Выберите регион">
         <optgroup disabled="disabled" label="disabled">
             <option>Hidden</option>
+
         </optgroup>
         <optgroup>
-            <option><?php echo $location; ?></option>
+
+
+            <?php
+
+
+            foreach ($regions_map as $key => $region) {
+                    echo '<option value="' . $key . '" selected="selected">' . $region . '</option>';
+            }
+            echo '<option value="' . $location  . '" selected="selected">' . $location . '</option>';
+
+
+            ?>
+
+
+
+            <!-- Список всіх городів:
             <option>Івано-Франківська обл.</option>
             <option>Одеса</option>
             <option>Київ</option>
@@ -42,6 +58,8 @@ locations
             <option>Луганська обл.</option>
             <option>Чернігівська обл.</option>
             <option>Львівська обл.</option>
+            -->
+
         </optgroup>
     </select>
 </div>
