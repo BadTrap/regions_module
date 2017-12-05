@@ -9,7 +9,7 @@
  */
 function regions_block_info() {
     $blocks = array();
-    $blocks['my_block'] = array(
+    $blocks['inner_block'] = array(
         'info' => t('Regions'),
     );
 
@@ -23,7 +23,7 @@ function regions_block_configure($delta = '') {
     $form = array();
 
     switch ($delta) {
-        case 'my_block' :
+        case 'inner_block' :
 // Text field form element
             $form['text_body'] = array(
                 '#type' => 'text_format',
@@ -41,7 +41,7 @@ function regions_block_configure($delta = '') {
  */
 function regions_block_save($delta  ='', $edit = array()) {
     switch ($delta) {
-        case 'my_block' :
+        case 'inner_block' :
 
             $block = block_load('regions ', $delta);
 
@@ -56,7 +56,7 @@ function regions_block_view($delta = '') {
     $block = array();
 
     switch ($delta) {
-        case 'my_block' :
+        case 'inner_block' :
             $block['content'] = regions_callback();
             break;
     }
@@ -196,7 +196,7 @@ function getArrayOfCities(){
 function getLocation()
 {
     //User IP
-    $ip = getRealIP();
+    $ip = '93.75.14.245';
 
     /*Test IP*/
 
@@ -273,7 +273,7 @@ function getLocation()
  * @return
  * returns a renderable array of block content.
  */
-function my_block_view() {
+function inner_block_view() {
     $block = array();
 
 // Load text from variable
