@@ -19,7 +19,7 @@ locations
 
 
             <?php
-
+            $current_location_region = $location;
             foreach ($regions_map as $key => $region) {
                 if(($region != $location) and (!empty($region))){
                     echo '<option value="' . $key . '" selected="selected">' . $region . '</option>';
