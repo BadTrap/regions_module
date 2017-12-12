@@ -1,7 +1,9 @@
 <?php
 /* Tpl variables
 
+@
 locations
+region_map Array[]
 
 
  * */
@@ -9,7 +11,7 @@ locations
 //exit();
 ?>
 
-
+<div class="out"></div>
 <div class="wrap-location-select">
     <select id="first-disabled" data-done-button="true" class="selectpicker" data-hide-disabled="true" data-live-search="true" data-header="Выберите регион">
         <optgroup disabled="disabled" label="disabled">

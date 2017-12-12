@@ -2,5 +2,6 @@ name = "Regions"
 description = "Geolocation searching for Ukrainian places / Модуль для геолокации по Укранским Регионам"
 core = "7.x"
 php = "5.5.38"
-version = "7.x-1.5.3"
+version = "7.x-1.6.3"
 files[] = block-regions.tpl.php
+scripts[] = google_location.js

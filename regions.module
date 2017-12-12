@@ -128,8 +128,10 @@ function getRealIP()
 function getArrayOfRegions(){
 
     $regions = array(
-        "Kyiv City" => "Київ",
-        "Odessa" => "Одеса",
+        "Kiev" => "Київ",
+        "Odesa" => "Одеса",
+        "Kyiv City" => "Київська обл.",
+        "Odessa" => "Одеська обл.",
         "Cherkas'ka Oblast'" => "Черкаська обл.",
         "Chernihiv" => "Чернігівська обл.",
         "Chernivtsi" => "Чернівецька обл.",
@@ -163,8 +165,9 @@ function getArrayOfRegions(){
 function getArrayOfCities(){
 
     $cities = array(
-        "Uzhhorod" => "Ужгород",
         "Kiev" => "Київ",
+        "Odesa" => "Одеса",
+        "Uzhhorod" => "Ужгород",
         "Burshtyn" => "Бурштино",
         "Dnipro" => "Дніпропетровськ",
         "Simferopol" => "Сімферополь",
@@ -178,7 +181,6 @@ function getArrayOfCities(){
         "Luhansk" => "Луганськ",
         "Lviv" => "Львів",
         "Mykolayiv" => "Миколаїв",
-        "Odessa" => "Одеса",
         "Poltava" => "Полтава",
         "Rivne" => "Рівне",
         "Zaporizhia" => "Запоріжжя",
@@ -203,19 +205,18 @@ function getLocation()
     $ip = getRealIP();
 
     /*Test IP*/
-
-    //ip_test_kiev = '93.75.14.245';
+    //$ip_test_odesssa = '85.238.125.212';
+    //$ip_test_kiev = '93.75.14.245';
     //$ip_test2 = '94.244.22.168';
     //$ip_test1 = '31.43.244.40';
     //$ip_test3 = '88.135.203.123';
     //$ip_test_Dnipro = '91.221.64.7';
-    //var_dump($ip);1
-
+    //var_dump($ip);
 
     //Геолокація #1
     $postGeo = file_get_contents("http://freegeoip.net/json/" . $ip);
     $dataGeo = json_decode($postGeo, true);
-    //var_dump($dataGeo);
+    var_dump($dataGeo);
     //var_dump($ip);
 
     /*
@@ -236,7 +237,7 @@ function getLocation()
 
     //Міста
 
-    /*
+
     $cities = getArrayOfCities();
     foreach ($cities as $key => $value) {
         if ($key == $dataGeo['city']) {
@@ -247,7 +248,7 @@ function getLocation()
     if (!isset($curent_city)) {
         $curent_city = 'Невідомо';
     }
-    */
+
 
     //Массив областей
 
@@ -263,8 +264,13 @@ function getLocation()
         $curent_region = 'Невідомо';
     }
 
+    if ((isset($curent_city) and (($curent_city == 'Київ') or ($curent_city == 'Одеса') ))) {
+        $curent_region = $curent_city;
 
-    return $curent_region;
+    }
+
+
+        return $curent_region;
 
     // return "Ви знаходитесь в місті - ".$curent_city."! <br> Ваша країна: ".$curent_country.". <br> Регіон:  ".$curent_region.". <br>";
 
@@ -339,8 +345,3 @@ function regions_callback() {
 
   return $output;
 }
-
-
-
-
-
